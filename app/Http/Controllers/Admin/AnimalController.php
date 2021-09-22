@@ -15,7 +15,9 @@ class AnimalController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.animals.index', [
+            'animals' => Animal::paginate()
+        ]);
     }
 
     /**

@@ -227,8 +227,8 @@ return [
     'menu' => [
         // Navbar items:
         [
-            'text'        => 'pages',
-            'url'         => 'admin/pages',
+            'text'        => 'Animals',
+            'url'         => 'admin/animals',
             'icon'        => 'far fa-fw fa-list',
         ],
     ],
