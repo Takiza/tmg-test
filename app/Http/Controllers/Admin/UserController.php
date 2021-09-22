@@ -45,13 +45,12 @@ class UserController extends Controller
                 $animals = $animals->where('type_id', $animalType->id);
         }
 
-        $animals = $animals->get();
+        $animal = $animals->orderBy('created_at')->first();
 
-        if (count($animals) == 0) {
+        if (!$animal) {
             return redirect()->route('admin.users.index');
         }
 
-        $animal = $animals->random();
 
         $user->animals()->attach(1, array('animal_id' => $animal->id, 'user_id' => $user->id));
 
