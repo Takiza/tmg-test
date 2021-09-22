@@ -19,7 +19,7 @@ Route::get('/', function () {
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin'], function () {
 
-    Route::get('/', 'AnimalController@index')->name('animals.index');
+    Route::get('/', 'AnimalController@index')->name('dashboard');
     Route::post('/users/{user}/animal_type', 'UserController@giveAnimal')->name('users.give_animal');
 
     Route::resource('animals', AnimalController::class);
