@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Animal\Animal;
 use App\Models\Animal\AnimalType;
+use App\Models\User\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class AnimalController extends Controller
+class userController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,19 +16,11 @@ class AnimalController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, AnimalType $animalType)
+    public function index(Request $request)
     {
-        $animalsQuery = Animal::with('type')->orderBy('name');
-
-        if ($request->type_id != '') {
-            $animalType = AnimalType::find($request->type_id);
-            if ($animalType) {
-                $animalsQuery->where('type_id', $animalType->id);
-            }
-        }
-
-        return view('admin.animals.index', [
-            'animals' => $animalsQuery->paginate()
+        return view('admin.users.index', [
+            'users' => User::paginate(),
+            'animalTypes' => AnimalType::all()
         ]);
     }
 
@@ -39,8 +31,8 @@ class AnimalController extends Controller
      */
     public function create()
     {
-        return view('admin.animals.create', [
-            'types' => AnimalType::all()
+        return view('admin.users.create', [
+
         ]);
     }
 
@@ -54,27 +46,27 @@ class AnimalController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required',
-            'age' => 'required|integer',
+            'email' => 'required'
         ]);
 
         if ($validator->fails()) {
-            return redirect()->route('admin.animals.create')
+            return redirect()->route('admin.users.create')
                 ->withErrors($validator)
                 ->withInput();
         }
 
-        Animal::create($request->all());
+        User::create($request->all());
 
-        return redirect()->route('admin.animals.index');
+        return redirect()->route('admin.users.index');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Animal\Animal  $animal
+     * @param  \App\Models\user\user  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(Animal $animal)
+    public function show(User $user)
     {
         //
     }
@@ -82,10 +74,10 @@ class AnimalController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Animal\Animal  $animal
+     * @param  \App\Models\user\user  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(Animal $animal)
+    public function edit(User $user)
     {
         //
     }
@@ -94,10 +86,10 @@ class AnimalController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Animal\Animal  $animal
+     * @param  \App\Models\user\user  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Animal $animal)
+    public function update(Request $request, User $user)
     {
         //
     }
@@ -105,10 +97,10 @@ class AnimalController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Animal\Animal  $animal
+     * @param  \App\Models\user\user  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Animal $animal)
+    public function destroy(User $user)
     {
         //
     }

@@ -21,4 +21,5 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin'], fu
 
     Route::get('/', 'AnimalController@index')->name('animals.index');
     Route::resource('animals', AnimalController::class);
+    Route::resource('users', UserController::class);
 });

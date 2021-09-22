@@ -9,6 +9,7 @@ return [
     'actions' => 'Actions',
     'update' => 'Update',
     'update_and_continue' => 'Update and continue',
+    'close' => 'Close',
 
     'id' => 'ID',
     'statuses' => 'Statuses',
@@ -124,5 +125,9 @@ return [
     'animal_type' => 'Animal type',
     'add_to_the_shelter' => 'Add to the shelter',
     'add_animal' => 'Add animal',
-    'age' => 'Age'
+    'age' => 'Age',
+    'user_animals' => 'User animals',
+    'show' => 'Show',
+    'give_out' => 'Give out',
+    'random_type' => 'Random type'
 ];

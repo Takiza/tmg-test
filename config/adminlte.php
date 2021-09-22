@@ -229,8 +229,32 @@ return [
         [
             'text'        => 'Animals',
             'url'         => 'admin/animals',
-            'icon'        => 'far fa-fw fa-list',
+            'icon'        => 'far fa-fw fa-item',
+            'submenu' => [
+                [
+                    'text' => 'All types',
+                    'url'  => 'admin/animals?',
+                ],
+                [
+                    'text' => 'Cats',
+                    'url'  => 'admin/animals?type_id=1',
+                ],
+                [
+                    'text' => 'Dogs',
+                    'url'  => 'admin/animals?type_id=2',
+                ],
+                [
+                    'text' => 'Turtles',
+                    'url'  => 'admin/animals?type_id=3',
+                ],
+            ]
         ],
+
+        [
+            'text'        => 'Users',
+            'url'         => 'admin/users',
+            'icon'        => 'far fa-fw fa-users',
+        ]
     ],
 
     /*
