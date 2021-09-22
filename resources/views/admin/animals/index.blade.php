@@ -21,6 +21,7 @@
                     <th>{{ __('common.name') }}</th>
                     <th>{{ __('common.age') }}</th>
                     <th>{{ __('common.type') }}</th>
+                    <th>{{ __('common.status') }}</th>
 {{--                    <th style="width:5%">{{ __('common.actions') }}</th>--}}
                 </tr>
                 </thead>
@@ -31,6 +32,7 @@
                         <td>{{ $animal->name }}</td>
                         <td>{{ $animal->age }}</td>
                         <td>{{ $animal->type->name }}</td>
+                        <td>{{ $animal->status->name }}</td>
 {{--                        <td>
                             <a href="{{ route('admin.animals.edit', ['animal' => $animal->id]) }}" class="btn btn-xs btn-warning" data-toggle="tooltip" data-placement="top" data-title="Edit">
                                 <i class="fa fa-edit"></i>

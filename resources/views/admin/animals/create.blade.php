@@ -39,6 +39,13 @@
                                 <option value="{{ $type->id }}">{{ $type->name }}</option>
                             @endforeach
                         </select>
+
+                        <label>{{ __('common.status') }}</label>
+                        <select class="form-control"  name="status_id">
+                            @foreach($statuses as $status)
+                                <option value="{{ $status->id }}">{{ $status->name }}</option>
+                            @endforeach
+                        </select>
                     </div>
 
                 </div>

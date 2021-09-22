@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Animal\Animal;
+use App\Models\Animal\AnimalStatus;
 use App\Models\Animal\AnimalType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -18,7 +19,7 @@ class AnimalController extends Controller
      */
     public function index(Request $request, AnimalType $animalType)
     {
-        $animalsQuery = Animal::with('type')->orderBy('name');
+        $animalsQuery = Animal::with(['type', 'status'])->orderBy('name');
 
         if ($request->type_id != '') {
             $animalType = AnimalType::find($request->type_id);
@@ -40,7 +41,8 @@ class AnimalController extends Controller
     public function create()
     {
         return view('admin.animals.create', [
-            'types' => AnimalType::all()
+            'types' => AnimalType::all(),
+            'statuses' => AnimalStatus::all(),
         ]);
     }
 
@@ -55,6 +57,8 @@ class AnimalController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'age' => 'required|integer',
+            'type_id' => 'required|integer',
+            'status_id' => 'required|integer',
         ]);
 
         if ($validator->fails()) {
