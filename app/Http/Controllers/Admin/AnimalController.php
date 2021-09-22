@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Animal\Animal;
+use App\Models\Animal\AnimalType;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class AnimalController extends Controller
 {
@@ -16,7 +18,7 @@ class AnimalController extends Controller
     public function index()
     {
         return view('admin.animals.index', [
-            'animals' => Animal::paginate()
+            'animals' => Animal::with('type')->paginate()
         ]);
     }
 
@@ -27,7 +29,9 @@ class AnimalController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.animals.create', [
+            'types' => AnimalType::all()
+        ]);
     }
 
     /**
@@ -38,7 +42,20 @@ class AnimalController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'age' => 'required|integer',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->route('admin.animals.create')
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        Animal::create($request->all());
+
+        return redirect()->route('admin.animals.index');
     }
 
     /**

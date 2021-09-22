@@ -21,7 +21,7 @@
                     <th>{{ __('common.name') }}</th>
                     <th>{{ __('common.age') }}</th>
                     <th>{{ __('common.type') }}</th>
-                    <th style="width:5%">{{ __('common.actions') }}</th>
+{{--                    <th style="width:5%">{{ __('common.actions') }}</th>--}}
                 </tr>
                 </thead>
                 <tbody>
@@ -31,17 +31,17 @@
                         <td>{{ $animal->name }}</td>
                         <td>{{ $animal->age }}</td>
                         <td>{{ $animal->type->name }}</td>
-                        <td>
-                            <a href="{{ route('admin.animals.edit', ['animal' => $animal->id, 'category' => $animal->category->id]) }}" class="btn btn-xs btn-warning" data-toggle="tooltip" data-placement="top" data-title="Edit">
+{{--                        <td>
+                            <a href="{{ route('admin.animals.edit', ['animal' => $animal->id]) }}" class="btn btn-xs btn-warning" data-toggle="tooltip" data-placement="top" data-title="Edit">
                                 <i class="fa fa-edit"></i>
                             </a>
                             <a class="btn btn-xs btn-danger" data-placement="top" data-title="Delete" data-toggle="modal" data-target="#modal-secondary-{{ $animal->id }}">
                                 <i class="fa fa-trash-alt"></i>
                             </a>
-                        </td>
+                        </td>--}}
                     </tr>
 
-                    <form method="POST" action="{{ route('admin.animals.destroy', ['animal' => $animal->id]) }}" enctype="multipart/form-data">
+                    {{--<form method="POST" action="{{ route('admin.animals.destroy', ['animal' => $animal->id]) }}" enctype="multipart/form-data">
                         @method('delete')
                         @csrf
                         <div class="modal fade show" id="modal-secondary-{{ $animal->id }}" style="display: none; padding-right: 17px;" aria-modal="true">
@@ -62,7 +62,7 @@
                                 </div>
                             </div>
                         </div>
-                    </form>
+                    </form>--}}
                 @endforeach
                 </tbody>
             </table>
