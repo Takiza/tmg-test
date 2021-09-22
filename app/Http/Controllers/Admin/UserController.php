@@ -48,7 +48,7 @@ class UserController extends Controller
         $animals = $animals->get();
 
         if (count($animals) == 0) {
-            return redirect()->back();
+            return redirect()->route('admin.users.index');
         }
 
         $animal = $animals->random();
