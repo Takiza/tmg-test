@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Animal\Animal;
+use App\Models\Animal\AnimalStatus;
 use App\Models\Animal\AnimalType;
 use App\Models\User\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class userController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,6 +20,47 @@ class userController extends Controller
      */
     public function index(Request $request)
     {
+        return view('admin.users.index', [
+            'users' => User::with('animals')->paginate(),
+            'animalTypes' => AnimalType::all()
+        ]);
+    }
+
+    /**
+     * Give animal to user.
+     *
+     * @param Request $request
+     * @param User $user
+     * @return \Illuminate\Http\Response
+     */
+    public function giveAnimal(Request $request, User $user)
+    {
+        $animals = Animal::whereHas('status', function ($query) {
+            $query->where('name', 'Active');
+        });
+
+        if ($request->type_id != 0) {
+            $animalType = AnimalType::find($request->type_id);
+            if ($animalType)
+                $animals = $animals->where('type_id', $animalType->id);
+        }
+
+        $animals = $animals->get();
+
+        if (count($animals) == 0) {
+            return redirect()->back();
+        }
+
+        $animal = $animals->random();
+
+        $user->animals()->attach(1, array('animal_id' => $animal->id, 'user_id' => $user->id));
+
+        $statusTransferred = AnimalStatus::firstWhere('name', 'Transferred');
+
+        $animal->update([
+            'status_id' => $statusTransferred->id
+        ]);
+
         return view('admin.users.index', [
             'users' => User::paginate(),
             'animalTypes' => AnimalType::all()

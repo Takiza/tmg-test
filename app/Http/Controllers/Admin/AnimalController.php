@@ -19,17 +19,17 @@ class AnimalController extends Controller
      */
     public function index(Request $request, AnimalType $animalType)
     {
-        $animalsQuery = Animal::with(['type', 'status'])->orderBy('name');
+        $animals = Animal::with(['type', 'status'])->orderBy('name');
 
         if ($request->type_id != '') {
             $animalType = AnimalType::find($request->type_id);
             if ($animalType) {
-                $animalsQuery->where('type_id', $animalType->id);
+                $animals->where('type_id', $animalType->id);
             }
         }
 
         return view('admin.animals.index', [
-            'animals' => $animalsQuery->paginate()
+            'animals' => $animals->paginate()
         ]);
     }
 
